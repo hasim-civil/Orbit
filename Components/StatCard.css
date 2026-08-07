@@ -1,0 +1,57 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 12px;
+  background: var(--surface, #fff);
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(#fff, #fff),
+    linear-gradient(150deg, rgba(107, 78, 255, 0.14) 0%, rgba(0, 184, 169, 0.10) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 2px 6px rgba(23, 23, 38, 0.06), 0 1px 2px rgba(23, 23, 38, 0.04);
+  /* No `transition` here — hover/tap motion comes from Framer Motion. */
+}
+
+.stat-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.stat-icon.blue   { background: #dce8ff; color: #3e7bfa; }
+.stat-icon.purple { background: #f2efff; color: #6b4eff; }
+.stat-icon.orange { background: #fdefd0; color: #f5a524; }
+.stat-icon.red    { background: #fde0e1; color: #e5484d; }
+.stat-icon.teal   { background: #ccf3f0; color: #00b8a9; }
+
+.stat-info { min-width: 0; }
+
+.stat-info h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+
+.stat-info p {
+  font-size: 0.6875rem;
+  color: var(--text-muted, #9a9ab0);
+  font-weight: 500;
+  margin: 2px 0 0;
+}

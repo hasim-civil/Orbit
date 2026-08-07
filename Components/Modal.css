@@ -1,0 +1,129 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(23, 23, 38, 0.42);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-sheet {
+  width: 100%;
+  max-width: 560px;
+  max-height: 92dvh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 40px rgba(23, 23, 38, 0.18);
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.modal-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #ededf4;
+}
+.modal-sheet__header h3 { margin: 0; font-size: 1.0625rem; font-weight: 700; }
+
+.modal-sheet__close {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #9a9ab0;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.modal-sheet__body {
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-sheet__footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #ededf4;
+}
+.modal-sheet__footer > * { flex: 1; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #52526b;
+}
+.form-input {
+  font: inherit;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #dfdfea;
+  outline: none;
+  width: 100%;
+}
+.form-input:focus {
+  border-color: #6b4eff;
+  box-shadow: 0 0 0 4px rgba(107, 78, 255, 0.16);
+}
+
+.time-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.time-picker-group .form-input.time-part {
+  width: 64px;
+  text-align: center;
+  flex: none;
+}
+.time-sep { font-weight: 700; color: #9a9ab0; }
+
+.ampm-toggle {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #dfdfea;
+  margin-left: auto;
+}
+.ampm-btn {
+  border: none;
+  background: #fff;
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #52526b;
+}
+.ampm-btn.active {
+  background: #6b4eff;
+  color: #fff;
+}
+
+.form-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #9a9ab0;
+  margin: 0;
+}
+
+.modal-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fde0e1;
+  color: #b4272b;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
