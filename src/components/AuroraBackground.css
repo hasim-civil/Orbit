@@ -1,0 +1,62 @@
+/* Static layout only — no @keyframes, no CSS `animation` property.
+   All motion is applied via GSAP by animating transform (xPercent/yPercent/
+   scale) directly on these elements from AuroraBackground.tsx. */
+
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.aurora-blob--violet {
+  top: -10%;
+  left: -8%;
+  width: 62vw;
+  height: 62vw;
+  max-width: 620px;
+  max-height: 620px;
+  background: radial-gradient(circle, rgba(107, 78, 255, 0.55) 0%, transparent 70%);
+}
+
+.aurora-blob--teal {
+  top: -6%;
+  right: -12%;
+  width: 58vw;
+  height: 58vw;
+  max-width: 580px;
+  max-height: 580px;
+  background: radial-gradient(circle, rgba(0, 184, 169, 0.50) 0%, transparent 70%);
+}
+
+.aurora-blob--lavender {
+  bottom: -14%;
+  left: -10%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(174, 155, 255, 0.46) 0%, transparent 72%);
+}
+
+.aurora-blob--cyan {
+  bottom: -10%;
+  right: -8%;
+  width: 64vw;
+  height: 64vw;
+  max-width: 640px;
+  max-height: 640px;
+  background: radial-gradient(circle, rgba(95, 217, 209, 0.44) 0%, transparent 72%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob { transform: none; }
+}
