@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Design tokens — ported from the original app's css/design-system.css so
+   migrated pages keep the same brand, spacing, and type scale. Tailwind v4
+   reads @theme and generates real utility classes from these (bg-brand,
+   text-2xs, rounded-lg, etc.) instead of us hand-rolling CSS variables.
+   =========================================================================== */
+@theme {
+  /* Brand — electric indigo-violet */
+  --color-violet-50: #F2EFFF;
+  --color-violet-100: #E5DEFF;
+  --color-violet-200: #CBBDFF;
+  --color-violet-300: #AE9BFF;
+  --color-violet-400: #9179FF;
+  --color-violet-500: #6B4EFF;
+  --color-violet-600: #5836E8;
+  --color-violet-700: #4529BC;
+  --color-violet-800: #331E8C;
+  --color-violet-900: #221359;
+
+  /* Accent — teal */
+  --color-teal-100: #CCF3F0;
+  --color-teal-300: #5FD9D1;
+  --color-teal-500: #00B8A9;
+  --color-teal-700: #008073;
+
+  /* Semantics */
+  --color-green-100: #D4F4E2;
+  --color-green-500: #12A150;
+  --color-green-700: #0B7A3B;
+  --color-red-100: #FDE0E1;
+  --color-red-500: #E5484D;
+  --color-red-700: #B4272B;
+  --color-amber-100: #FDEFD0;
+  --color-amber-500: #F5A524;
+  --color-amber-700: #B87614;
+  --color-blue-100: #DCE8FF;
+  --color-blue-500: #3E7BFA;
+  --color-blue-700: #2557C7;
+
+  /* Neutrals */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-25: #FBFBFD;
+  --color-neutral-50: #F6F6FA;
+  --color-neutral-100: #EDEDF4;
+  --color-neutral-200: #DFDFEA;
+  --color-neutral-300: #C4C4D6;
+  --color-neutral-400: #9A9AB0;
+  /* AA-compliant muted text (4.5:1+ on white) — neutral-400/300 above stay
+     as-is for decorative use (borders, disabled icons, dividers), since
+     darkening them site-wide would change the visual weight of non-text
+     elements that were never a contrast problem. Text-carrying elements
+     should use text-muted instead of text-neutral-400/300 directly. */
+  --color-muted-text: #73738D;
+  --color-neutral-500: #71718A;
+  --color-neutral-600: #52526B;
+  --color-neutral-700: #3A3A50;
+  --color-neutral-800: #26263A;
+  --color-neutral-850: #1E1E30;
+  --color-neutral-900: #171726;
+  --color-neutral-950: #101019;
+
+  /* Semantic role aliases — what components should reach for day to day */
+  --color-brand: var(--color-violet-500);
+  --color-brand-hover: var(--color-violet-600);
+  --color-brand-active: var(--color-violet-700);
+  --color-brand-subtle: var(--color-violet-50);
+  --color-brand-border: var(--color-violet-200);
+  --color-accent: var(--color-teal-500);
+  --color-accent-subtle: var(--color-teal-100);
+  --color-success: var(--color-green-500);
+  --color-success-subtle: var(--color-green-100);
+  --color-danger: var(--color-red-500);
+  --color-danger-subtle: var(--color-red-100);
+  --color-warning: var(--color-amber-500);
+  --color-warning-subtle: var(--color-amber-100);
+  --color-info: var(--color-blue-500);
+  --color-info-subtle: var(--color-blue-100);
+
+  /* Typography */
+  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-data: 'IBM Plex Mono', ui-monospace, 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1.4vw, 1.875rem);
+  --text-2xl: clamp(1.875rem, 1.4rem + 2.2vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.5rem + 3.4vw, 3.5rem);
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  /* Motion easings — usable as arbitrary values, e.g. ease-[--ease-spring] */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Theme overrides — Light / Dark / Glass.
+
+   These re-point the *same* CSS custom properties every component already
+   uses (bg-white, text-neutral-900, bg-neutral-50, etc. all compile to
+   var(--color-*) in Tailwind v4 — confirmed by inspecting the build output).
+   That means switching [data-theme] on <html> restyles the whole app
+   without touching a single component file: no risk of regressing pages
+   that were already built and tested against the light palette.
+
+   Semantic/brand colors (--color-brand, --color-success, etc.) stay close
+   to their light values across themes, since they carry meaning (a status
+   badge should still read as "success green"); only the neutral surface
+   scale — backgrounds, cards, borders, primary/muted text — actually
+   inverts per theme.
+   --------------------------------------------------------------------------- */
+
+/* Light is the default and needs no override block — :root above already
+   defines the light values used throughout this file's @theme block. */
+
+[data-theme='dark'] {
+  --color-neutral-0: #1C1C2E;
+  --color-neutral-50: #14141F;
+  --color-neutral-100: #232336;
+  --color-neutral-200: #2E2E45;
+  --color-neutral-300: #3D3D58;
+  --color-neutral-400: #6A6A8A;
+  --color-muted-text: #9B9BB8;
+  --color-neutral-500: #A8A8C4;
+  --color-neutral-600: #C4C4DA;
+  --color-neutral-700: #DADAF0;
+  --color-neutral-900: #F3F3FF;
+
+  --color-brand-subtle: #2A2350;
+  --color-success-subtle: #0F2E1E;
+  --color-danger-subtle: #3A1A1E;
+  --color-warning-subtle: #3A2D10;
+  --color-info-subtle: #12233F;
+  --color-teal-100: #123832;
+  --color-blue-100: #142A47;
+  --color-amber-100: #3A2D10;
+  --color-red-100: #3A1A1E;
+  --color-red-50: #2A1418;
+
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-neutral-0);
+  --card-foreground: var(--color-neutral-900);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+}
+
+[data-theme='glass'] {
+  /* A darker base than "dark" so translucent glass cards have something
+     rich to float on top of, matching the aurora's own violet/teal glow. */
+  --color-neutral-0: rgba(36, 30, 64, 0.55);
+  --color-neutral-50: #100B24;
+  --color-neutral-100: rgba(255, 255, 255, 0.08);
+  --color-neutral-200: rgba(255, 255, 255, 0.14);
+  --color-neutral-300: rgba(255, 255, 255, 0.22);
+  --color-neutral-400: #8783B8;
+  --color-muted-text: #ADA8DE;
+  --color-neutral-500: #BFBAE8;
+  --color-neutral-600: #D6D2F5;
+  --color-neutral-700: #E7E4FA;
+  --color-neutral-900: #FBFAFF;
+
+  --color-brand-subtle: rgba(139, 108, 255, 0.22);
+  --color-success-subtle: rgba(18, 161, 80, 0.20);
+  --color-danger-subtle: rgba(229, 72, 77, 0.20);
+  --color-warning-subtle: rgba(245, 165, 36, 0.20);
+  --color-info-subtle: rgba(62, 123, 250, 0.20);
+  --color-teal-100: rgba(0, 184, 169, 0.20);
+  --color-blue-100: rgba(62, 123, 250, 0.20);
+  --color-amber-100: rgba(245, 165, 36, 0.20);
+  --color-red-100: rgba(229, 72, 77, 0.20);
+  --color-red-50: rgba(229, 72, 77, 0.12);
+
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-neutral-0);
+  --card-foreground: var(--color-neutral-900);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+}
+
+/* Glass mode additionally frosts every card-like surface, matching the
+   "premium, translucent" brief. Only touches surfaces that already sit on
+   the aurora background — modal sheets and the bottom nav already had
+   their own explicit blur values (see Modal.tsx / BottomNav.tsx), those are
+   untouched here. */
+[data-theme='glass'] .bg-neutral-0 {
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Light theme (default) — shadcn/ui semantic tokens. Dark/glass above only
+   override the neutral scale + these five surface aliases; the rest of the
+   shadcn tokens below (popover, secondary, ring, etc.) stay constant across
+   themes since they're already built from the neutral scale via var(). */
+:root {
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-neutral-0);
+  --card-foreground: var(--color-neutral-900);
+  --popover: var(--color-neutral-0);
+  --popover-foreground: var(--color-neutral-900);
+  --primary: var(--color-violet-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-500);
+  --accent: var(--color-neutral-50);
+  --accent-foreground: var(--color-neutral-900);
+  --destructive: var(--color-red-500);
+  --destructive-foreground: #ffffff;
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-violet-500);
+  --radius: 0.875rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-ui);
+  }
+
+  /* Consistent on-brand keyboard focus ring app-wide, replacing the
+     browser's default black rectangle. :focus-visible only shows this for
+     keyboard/assistive-tech navigation, not for mouse/touch clicks, so it
+     never appears as an unwanted outline after a tap. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role='button']:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
